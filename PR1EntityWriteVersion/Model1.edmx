@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище THRModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Burgers">
+          <Key>
+            <PropertyRef Name="ID_Burger" />
+          </Key>
+          <Property Name="ID_Burger" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BurgerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BurgerIngredient" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="BurgerSum" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BurgerWeight" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BurgerLength" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerSurename" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerMiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerCard" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="CustomerNumberOfPhone" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Customer" Type="int" Nullable="false" />
+          <Property Name="ID_Burger" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Orders__ID_Burge__5070F446">
+          <End Role="Burgers" Type="Self.Burgers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Burgers">
+              <PropertyRef Name="ID_Burger" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Burger" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ID_Custo__4F7CD00D">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище THRModelContainer">
+          <EntitySet Name="Burgers" EntityType="Self.Burgers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Orders__ID_Burge__5070F446" Association="Self.FK__Orders__ID_Burge__5070F446">
+            <End Role="Burgers" EntitySet="Burgers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ID_Custo__4F7CD00D" Association="Self.FK__Orders__ID_Custo__4F7CD00D">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="THRModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Burgers">
+          <Key>
+            <PropertyRef Name="ID_Burger" />
+          </Key>
+          <Property Name="ID_Burger" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BurgerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BurgerIngredient" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BurgerSum" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BurgerWeight" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BurgerLength" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ID_Burge__5070F446" FromRole="Burgers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerSurename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerMiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCard" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CustomerNumberOfPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ID_Custo__4F7CD00D" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Customer" Type="Int32" Nullable="false" />
+          <Property Name="ID_Burger" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Burgers" Relationship="Self.FK__Orders__ID_Burge__5070F446" FromRole="Orders" ToRole="Burgers" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK__Orders__ID_Custo__4F7CD00D" FromRole="Orders" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Orders__ID_Burge__5070F446">
+          <End Role="Burgers" Type="Self.Burgers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Burgers">
+              <PropertyRef Name="ID_Burger" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Burger" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__ID_Custo__4F7CD00D">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="THREntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Burgers" EntityType="Self.Burgers" />
+          <EntitySet Name="Customers" EntityType="Self.Customers" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <AssociationSet Name="FK__Orders__ID_Burge__5070F446" Association="Self.FK__Orders__ID_Burge__5070F446">
+            <End Role="Burgers" EntitySet="Burgers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__ID_Custo__4F7CD00D" Association="Self.FK__Orders__ID_Custo__4F7CD00D">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище THRModelContainer" CdmEntityContainer="THREntities">
+          <EntitySetMapping Name="Burgers">
+            <EntityTypeMapping TypeName="THRModel.Burgers">
+              <MappingFragment StoreEntitySet="Burgers">
+                <ScalarProperty Name="ID_Burger" ColumnName="ID_Burger" />
+                <ScalarProperty Name="BurgerName" ColumnName="BurgerName" />
+                <ScalarProperty Name="BurgerIngredient" ColumnName="BurgerIngredient" />
+                <ScalarProperty Name="BurgerSum" ColumnName="BurgerSum" />
+                <ScalarProperty Name="BurgerWeight" ColumnName="BurgerWeight" />
+                <ScalarProperty Name="BurgerLength" ColumnName="BurgerLength" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="THRModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerSurename" ColumnName="CustomerSurename" />
+                <ScalarProperty Name="CustomerMiddleName" ColumnName="CustomerMiddleName" />
+                <ScalarProperty Name="CustomerCard" ColumnName="CustomerCard" />
+                <ScalarProperty Name="CustomerNumberOfPhone" ColumnName="CustomerNumberOfPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="THRModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="ID_Burger" ColumnName="ID_Burger" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
